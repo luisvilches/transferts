@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Descarga | Transferst</title>
+    <require path="./head.html" />
+    <style>
+        .nameFile{font-size: 15px;}
+        .title{color: #34495e;}
+    </style>
+</head>
+
+<body style="background:url({{img}});">
+    <require path="./header.html" />
+
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 col-12 shadow box2" style="min-height:0px;margin-bottom:350px;">
+    
+                    <div class="tab-content p20-0 mh170 text-left" id="myTabContent" style="min-height: 70px;padding:20px;">
+                        <label class="title">Nombre del archivo:</label>
+                        <p class="nameFile">{{data.name}}</p>
+                        <label class="title">Enviado por:</label>
+                        <p class="nameFile">{{data.user}}</p>
+                        <label class="title">Mensaje:</label>
+                        <p class="nameFile">{{data.message}}</p>
+                    </div>
+                    <hr>
+                    <div class="pd10">
+                        <a href="/files/{{data.name}}" download ref="send" class="btn btn-primary"><i class="fas fa-download mr8"></i> Descargar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <require path="./footer.html" />
+    </section>
+    <require path="./scripts.html" />
+</body>
+
+</html>

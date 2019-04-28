@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transferst | Transferencia de archivos</title>
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+    <require path="./head.html" />
+</head>
+
+<body style="background:url({{img}});">
+    <require path="./header.html" />
+
+    <div class="loader d-flex h-100" ref="loader">
+        <div class="boxing justify-content-center align-self-center">
+            <div class="d-flex h-100">
+                <div class="justify-content-center align-self-center" style="width: 100%;">
+                    <div class="body" ref="content-loader">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="container shadow box2">
+
+            <div class="row item">
+                <div class="col-md-12 col-12">
+                    <div class="files text-center" ref="dragandrop">
+                        <input type="file" id="fileElem" multiple accept="" change="handleFiles(this)"
+                            style="display:none;">
+                        <label class="btn-file" for="fileElem"><i class="material-icons add">add_circle_outline</i>
+                            Seleccionar Archivos</label>
+                    </div>
+
+                    <div class="box-files">
+                        <div ref="list"></div>
+                    </div>
+
+                    <!-- <div class="input-group input-group-sm mb-3" >
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">¿Quien envia?</span>
+                        </div>
+                        <input type="text" ref="name" class="form-control" placeholder="Nombre de quien envia"
+                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div> -->
+
+                    <div class="input-material" ref="inputName">
+                        <input class="input" type="text" ref="name">
+                        <label>¿Quien envia?</label>
+                        <!-- <div class="bar"></div> -->
+                    </div>
+
+                    <div class="input-material" ref="inputMail">
+                        <input class="input" type="text" ref="email">
+                        <label>Enviar a</label>
+                        <!-- <div class="bar"></div> -->
+                    </div>
+
+                    <div class="input-material">
+                        <textarea id="msg" ref="msg" type="text" class="input" cols="40" rows="4"></textarea>
+                        <label>Mensaje</label>
+                        <!-- <div class="bar"></div> -->
+                    </div>
+
+                    <!-- <div class="input-group input-group-sm mb-3" >
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm" style="padding-right:10px">Enviar
+                                a</span>
+                        </div>
+                        
+
+                            <span class="legal" style="margin-top:5px;">* Maximo 10 correos por envio, separados por coma</span>
+                    </div> -->
+
+                </div>
+            </div>
+
+            <div class="row item">
+                <div class="col-md-12 col-12">
+                    <ul class="nav nav-pills nav-fill">
+                        <li class="nav-item">
+                            <a class="nav-link active btn-sm" click="metodo(0)" id="home-tab" data-toggle="tab"
+                                href="#home" role="tab" aria-controls="home" aria-selected="true">Email</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-sm" click="metodo(1)" id="profile-tab" data-toggle="tab"
+                                href="#profile" role="tab" aria-controls="profile" aria-selected="false">Enlace</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="box-options">
+                        <p class="title-conf">Eliminar despues de:</p>
+                        <input type="radio" id="a0" value="0" checked name="remove" />
+                        <label for="a0" class="form-control">1 hora</label>
+                        <input type="radio" id="a1" value="1" name="remove" />
+                        <label for="a1" class="form-control">1 Día</label>
+                        <input type="radio" id="a2" value="2" name="remove" />
+                        <label for="a2" class="form-control">3 Días</label>
+                    </div>
+                    <hr>
+                    <div class="box-password">
+                        <label class="title-conf" for="ddf">Protejer con contraseña <input type="checkbox" name=""
+                                id="ddf" click="activatePassword(this)"></label>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm"
+                                    style="padding-right:10px">Password</span>
+                            </div>
+                            <input type="text" ref="pass" class="form-control" placeholder="Mi clave"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row item">
+                <div class="col-md-12 col-12 text-center" style="padding: 40px;">
+                    <img src="/assets/images/broken-link.svg" class="img-fluid broken" alt="">
+                    <div class="linkResult">
+                        <p>Copia tu enlace de descarga o <a ref="linkContent" href="">échale un vistazo al contenido</a>
+                        </p>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm"><i
+                                        class="fas fa-link"></i></span>
+                            </div>
+                            <input type="text" ref="link" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" value="" ref="link" click="copyLink()">
+                        </div>
+                        <a click="setItem(0)" style="cursor:pointer;color:#007bff;margin-top: 20px;"><strong>Hacer un
+                                nuevo envio</strong></a>
+                        <br>
+                        <p>Gracias por utilizar Transferts</p>
+                    </div>
+
+                    <div class="notify" ref="notify">Enlace copiado</div>
+                </div>
+            </div>
+
+            <div class="row item">
+                <div class="col-md-12 col-12 text-center" style="padding: 40px;">
+                    <img src="/assets/images/send.svg" class="img-fluid broken" alt="">
+                    <div class="linkResult">
+                        <p>Envio de correo(s) electronico(s) exitoso.</p>
+                        <a click="setItem(0)" style="cursor:pointer;color:#007bff;margin-top: 20px;"><strong>Hacer un
+                                nuevo envio</strong></a>
+                        <br>
+                        <p style="color:#555;">Gracias por utilizar Transferts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center btns">
+                <div class="col-md-2 col-2">
+                    <button tooltip="Opciones" flow="down-right" ref="conf" class="btn btn-outline-primary"
+                        click="openConfig(this)"><i class="material-icons">sort</i> </button>
+                </div>
+                <div class="col-md-10 col-10">
+                    <button ref="send" class="btn btn-primary call" click="sendFiles()" disabled> <i
+                            class="material-icons">send</i> Transferts</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="side-menu ayuda" ref="ayuda">
+        <i class="material-icons closed" click="closed()">cancel</i>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Ayuda rapida</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <h5>¿Cómo hago para enviar un archivo?</h5>
+                        <p>Agregue sus archivos haciendo click en el boton <i
+                                class="material-icons add">add_circle_outline</i>, agregue su nombre, agregue los emails
+                            de los destinatarios separados por coma un mensaje y listo.</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <h5>¿Cómo hago para descargar una transferencia que me enviaron?</h5>
+                        <p>Haga click en el boton de descarga en su correo electronio o enlace y descargue sus archivos
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <h5>Errores del sitio</h5>
+                        <p>Una nuevo sitio significa encontrar fallas a medida que vamos avanzando, si tienes algun
+                            error o problema favor notificar a <span><a
+                                    href="mailto:support@transferts.ml">support@transferts.ml</a></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-menu about" ref="about">
+        <i class="material-icons closed" click="closed()">cancel</i>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Bienvenido/a a Transferts.ml</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <p><span>Transferts.ml</span> fue fundada en 2019 para ofrecer la forma mas sencilla de enviar
+                            archivos.</p>
+                    </div>
+                    <div class="card">
+                        <p><span><strong>Trfst.ml</strong> (Transferts.ml)</span> es una aplicación completamente
+                            gratuita y de uso libre, los archivos subidos a nuestros servidores son eliminados en su
+                            fecha de expiracion y no se guarda ninguna informacion personal del usuario.</p>
+                    </div>
+                    <div class="card">
+                        <p>Si tienes dudas o ideas de mejoras, problemas o errores al usar la aplicación, favor
+                            notificar a <span><a href="mailto:support@transferts.ml">support@transferts.ml</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-menu api" ref="api">
+        <i class="material-icons closed" click="closed()">cancel</i>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>API Rest Trfts</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p><span>Fetch</span></p>
+                    <div class="card">
+                        <img src="/assets/images/trsfts.svg" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p><span>Parámetros requeridos:</span></p>
+                    <div class="card">
+                        <table class="table">
+                            <thead>
+                                <th>Parametro</th>
+                                <th>Tipo</th>
+                                <th>Descripciòn</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>String</td>
+                                    <td>Nombre de la persona que envia.</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>Number</td>
+                                    <td>Tipo de envio
+                                        <ul>
+                                            <li>0: Envio por email</li>
+                                            <li>1: Enlace de descarga</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>times</td>
+                                    <td>Number</td>
+                                    <td>Tiempo de expiracion de los archivos
+                                        <ul>
+                                            <li>0: 1 Hora</li>
+                                            <li>1: 1 Día</li>
+                                            <li>2: 3 Días</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>message</td>
+                                    <td>String</td>
+                                    <td>Mensaje a enviar junto a los archivos</td>
+                                </tr>
+                                <tr>
+                                    <td>email</td>
+                                    <td>String</td>
+                                    <td>Emails de los destinatarios separados por coma ( , )</td>
+                                </tr>
+
+                                <tr>
+                                    <td>files</td>
+                                    <td>Buffer</td>
+                                    <td>Archivos subidos de tipo FileReader</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <require path="./footer.html" />
+    <require path="./scripts.html" />
+</body>
+
+</html>

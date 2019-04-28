@@ -1,0 +1,41 @@
+{
+  "name": "hackathon.io",
+  "version": "0.0.1",
+  "description": "Web service Hackathon.io",
+  "main": "index.js",
+  "scripts": {
+    "start": "DATABASE=production node index"
+  },
+  "author": "Luis vilches Abarca",
+  "license": "ISC",
+  "dependencies": {
+    "connect-multiparty": "^2.1.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "htmlparser2": "^3.10.1",
+    "jwt-simple": "^0.5.1",
+    "md5-file": "^4.0.0",
+    "moment": "^2.22.0",
+    "mongoose": "^5.0.13",
+    "mongoose-bcrypt": "^1.5.0",
+    "mongoose-timestamp": "^0.6.0",
+    "mongoose-unique-validator": "^2.0.0",
+    "morgan": "^1.9.0",
+    "node-cron": "^2.0.3",
+    "node-geocoder": "^3.22.0",
+    "nodemailer": "^6.1.1",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "parse5": "^5.1.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "randomcolor": "^0.5.3",
+    "select-random-file": "^1.1.0",
+    "shortid": "^2.2.14"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^12.2.3",
+    "@types/node": "^11.13.6",
+    "@types/parse5": "^5.0.0"
+  }
+}
