@@ -1,10 +1,10 @@
 {
-  "name": "hackathon.io",
+  "name": "tranferts",
   "version": "0.0.1",
-  "description": "Web service Hackathon.io",
+  "description": "Web service Tranferts",
   "main": "index.js",
   "scripts": {
-    "start": "DATABASE=production node index"
+    "start": "node index"
   },
   "author": "Luis vilches Abarca",
   "license": "ISC",

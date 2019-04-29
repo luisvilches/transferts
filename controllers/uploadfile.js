@@ -102,7 +102,7 @@ Array.prototype.sync = function(callback,callbacktermino){
                     name:data.name,
                     message:data.message,
                     file:response.name,
-                    url:response.url,
+                    url:'http://transferts.ml/'+response.code,
                     exp:dateRemove.format('DD-MM-YYYY, h:mm:ss a')
                 })
                 .then(e => {
