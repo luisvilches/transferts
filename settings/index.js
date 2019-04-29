@@ -1,7 +1,7 @@
 
 module.exports = {
     SERVER:{
-        port:1990,
+        port:1989,
         static_url: "static",
         media_url: "media",
         cors:{
