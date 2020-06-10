@@ -56,25 +56,25 @@ exports.upload = (req, res) => {
             cb(dst);
             // deleteFolderRecursive(dir);
 
-            // var timeRemove;
+            var timeRemove;
 
-            // switch (data.times.toString()) {
-            //     case '0':
-            //         timeRemove = { num: 1, type: 'hours' }
-            //         break;
-            //     case '1':
-            //         timeRemove = { num: 1, type: 'days' }
-            //         break;
-            //     case '2':
-            //         timeRemove = { num: 3, type: 'days' }
-            //         break;
-            // }
-            // dateRemove = moment().add(timeRemove.num, timeRemove.type);
-            // var cronString = dateRemove.minute() + ' ' + dateRemove.hour() + ' ' + dateRemove.date() + ' ' + (dateRemove.month() + 1) + ' *';
+            switch (data.times.toString()) {
+                case '0':
+                    timeRemove = { num: 1, type: 'hours' }
+                    break;
+                case '1':
+                    timeRemove = { num: 1, type: 'days' }
+                    break;
+                case '2':
+                    timeRemove = { num: 3, type: 'days' }
+                    break;
+            }
+            dateRemove = moment().add(timeRemove.num, timeRemove.type);
+            var cronString = dateRemove.minute() + ' ' + dateRemove.hour() + ' ' + dateRemove.date() + ' ' + (dateRemove.month() + 1) + ' *';
 
-            // cron.schedule(cronString, () => {
-            //     removeFile(dir + '.zip');
-            // });
+            cron.schedule(cronString, () => {
+                removeFile(dir + '.zip');
+            });
         })
     }
 
@@ -162,14 +162,8 @@ function sendMail(mails, options, url) {
                 return options[variable] || ''
             })
         };
-
-        let transporter = NodeMailer.createTransport(smtpTransport({
-            service: 'gmail',
-            auth: {
-                user: 'lvilches21@gmail.com',
-                pass: 'andres3190'
-            }
-        }));
+        const smtp = { host: 'mail.bukitech.cl', port: 465, secure: true, auth: { user: 'no-reply@bukitech.cl', pass: '4*t;JXx,kf19' }, tls: { rejectUnauthorized: false } }
+        let transporter = NodeMailer.createTransport(smtpTransport(smtp));
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {

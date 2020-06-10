@@ -269,9 +269,10 @@ function sendFiles(){
         }
     });
 
-    if(name == null || name.value.length == 0 || /^\S+$/.test(name.value)){
+    if(name == null || name.value.length == 0){
         name.style.borderBottom = '1px solid #EF5350';
         name.nextSibling.nextElementSibling.style.color = '#EF5350';
+        console.log('falla')
         return false;
     } else{
         name.style.borderBottom = '1px solid #007bff';
