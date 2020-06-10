@@ -16,17 +16,18 @@ module.exports = {
             name:"trfst-transfers",
             user:"Trfst",
             password:"Andres2230",
-            port:"45926",
-            host:"ds145926.mlab.com",
+            port:"39262",
+            host:"ds139262.mlab.com",
             provider:"mlab"
         },
         producction:{
             name:"trfst-transfers",
             user:"Trfst",
             password:"Andres2230",
-            port:"45926",
-            host:"ds145926.mlab.com",
+            port:"39262",
+            host:"ds139262.mlab.com",
             provider:"mlab"
         }
     }
 };
+

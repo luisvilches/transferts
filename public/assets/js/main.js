@@ -309,7 +309,7 @@ function sendFiles(){
     } else {
 
         for(var i in files ) {
-            fd.append('files', files[i], files[i].name );
+            fd.append('files', files[i]);
         }
         btn.disabled = false;
     }

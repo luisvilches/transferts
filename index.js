@@ -14,17 +14,42 @@ const fs = require('fs');
 const utils = require('./utils');
 const auth = require('./middlewares/auth');
 const body = require('connect-multiparty')();
+const formidable = require('formidable');
 mongoose.Promise = global.Promise;
+
+
+
+// promesa formidable
+const promiseForm = (req) => {
+    const form = formidable({ multiples: true });
+    return new Promise((resolve, reject) => {
+        form.parse(req, (err, fields, files) => {
+            if (err) reject(err);
+            else resolve({ body: fields, files: files });
+        });
+    });
+}
+
+// middleware formidable
+async function middleFiles(req, res, next) {
+    req['bk'] = {};
+    const result = await promiseForm(req);
+    req.bk['files'] = result.files;
+    req.bk['body'] = result.body;
+    req['files'] = result.files;
+    req['body'] = result.body;
+    next();
+}
 
 app.engine('html', require('./engine')());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
-
+app.use(middleFiles);
 app.use(cors());
-app.use(helmet());
+// app.use(helmet());
 app.disable('x-powered-by');
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(express.static(path.join(path.resolve(),'public')));
 app.use(function(req,res,next){
     res['response'] = function(file,data){
@@ -34,9 +59,9 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use("/api",body,api);
-app.use("/",body,routes);
-app.use("/auth",auth.auth,body,routesPrivates);
+app.use("/api",api);
+app.use("/",routes);
+app.use("/auth",auth.auth,routesPrivates);
 
 
 app.use(function(req, res, next){
